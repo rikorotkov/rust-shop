@@ -1,6 +1,5 @@
 package ru.floda.home.rustshop.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.floda.home.rustshop.exceptions.UserNotFoundException;
 import ru.floda.home.rustshop.model.User;
