@@ -52,7 +52,6 @@ public class ImageDownloadService {
         log.info("Download completed. Success: {}, Failed: {}", downloaded, failed);
     }
 
-
     private void downloadImage(String imageUrl, Path targetPath) throws IOException {
         URL url = new URL(imageUrl);
         try (InputStream in = url.openStream()) {

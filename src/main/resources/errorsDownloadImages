@@ -1,0 +1,8 @@
+2025-04-24T14:01:54.350+03:00 ERROR 38924 --- [rust-shop] [nio-8080-exec-2] r.f.h.r.service.ImageDownloadService     : Failed to download SpgameIder Webs: https://wiki.rustclash.com/img/items180/spgameIderweb.png
+2025-04-24T14:01:10.015+03:00 ERROR 38924 --- [rust-shop] [nio-8080-exec-2] r.f.h.r.service.ImageDownloadService     : Failed to download FrgameIdge: https://wiki.rustclash.com/img/items180/frgameIdge.png
+2025-04-24T14:01:00.825+03:00 ERROR 38924 --- [rust-shop] [nio-8080-exec-2] r.f.h.r.service.ImageDownloadService     : Failed to download HgameIde Skirt: https://wiki.rustclash.com/img/items180/attire.hgameIde.skirt.png
+2025-04-24T14:01:00.507+03:00 ERROR 38924 --- [rust-shop] [nio-8080-exec-2] r.f.h.r.service.ImageDownloadService     : Failed to download HgameIde Boots: https://wiki.rustclash.com/img/items180/attire.hgameIde.boots.png
+2025-04-24T14:00:59.626+03:00 ERROR 38924 --- [rust-shop] [nio-8080-exec-2] r.f.h.r.service.ImageDownloadService     : Failed to download HgameIde Vest: https://wiki.rustclash.com/img/items180/attire.hgameIde.vest.png
+2025-04-24T14:00:58.474+03:00 ERROR 38924 --- [rust-shop] [nio-8080-exec-2] r.f.h.r.service.ImageDownloadService     : Failed to download HgameIde Poncho: https://wiki.rustclash.com/img/items180/attire.hgameIde.poncho.png
+2025-04-24T14:00:57.393+03:00 ERROR 38924 --- [rust-shop] [nio-8080-exec-2] r.f.h.r.service.ImageDownloadService     : Failed to download HgameIde Pants: https://wiki.rustclash.com/img/items180/attire.hgameIde.pants.png
+2025-04-24T14:00:50.146+03:00 ERROR 38924 --- [rust-shop] [nio-8080-exec-2] r.f.h.r.service.ImageDownloadService     : Failed to download HgameIde Halterneck: https://wiki.rustclash.com/img/items180/attire.hgameIde.helterneck.png
