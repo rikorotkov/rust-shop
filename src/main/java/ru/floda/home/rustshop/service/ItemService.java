@@ -7,6 +7,7 @@ import ru.floda.home.rustshop.repository.CategoryRepository;
 import ru.floda.home.rustshop.repository.ItemRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,5 +18,9 @@ public class ItemService {
 
     public List<Item> findAll() {
         return itemRepository.findAll();
+    }
+
+    public Optional<Item> findById(Long id) {
+        return itemRepository.findById(id);
     }
 }

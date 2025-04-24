@@ -12,21 +12,14 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
-public class User {
+@Table(name = "carts")
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-    private Double balance;
-
-    private Boolean isGameMaster = false;
-
     @OneToMany
-    private List<Server> servers = new ArrayList<>();
+    private List<CartItem> items = new ArrayList<>();
 
-    @OneToOne
-    private Cart cart;
+    private Double total;
 }

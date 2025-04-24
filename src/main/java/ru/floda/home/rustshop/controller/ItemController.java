@@ -4,22 +4,28 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.floda.home.rustshop.service.DonationService;
+import ru.floda.home.rustshop.model.Item;
 import ru.floda.home.rustshop.service.ItemService;
-import ru.floda.home.rustshop.service.UserService;
 
 @Controller
-@RequestMapping("/item")
+@RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemController {
-    private final UserService userService;
-    private final DonationService donationService;
     private final ItemService itemService;
 
-    @GetMapping("/item")
+    @GetMapping
     public String findAllItems(Model model) {
         model.addAttribute("items", itemService.findAll());
-        return "index";
+        return "item/index";
+    }
+
+    @GetMapping("/{id}")
+    public String findItemById(@PathVariable long id, Model model) {
+        Item item = itemService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Предмет не найден"));
+        model.addAttribute("item", item);
+        return "item/show-item";
     }
 }
