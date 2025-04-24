@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import ru.floda.home.rustshop.dto.ItemDto;
+import ru.floda.home.rustshop.dto.ItemDtoImport;
 import ru.floda.home.rustshop.model.Category;
 import ru.floda.home.rustshop.model.Item;
 import ru.floda.home.rustshop.repository.CategoryRepository;
@@ -38,12 +38,12 @@ public class ImportService {
     @Transactional
     public void importItemsFromFile(String filePath) throws IOException {
         // Чтение и парсинг JSON
-        ItemDto[] itemsArray = objectMapper.readValue(new File(filePath), ItemDto[].class);
-        List<ItemDto> items = Arrays.asList(itemsArray);
+        ItemDtoImport[] itemsArray = objectMapper.readValue(new File(filePath), ItemDtoImport[].class);
+        List<ItemDtoImport> items = Arrays.asList(itemsArray);
 
         // Получаем все уникальные категории из JSON
         Set<String> categoryNames = items.stream()
-                .map(ItemDto::getCategory)
+                .map(ItemDtoImport::getCategory)
                 .collect(Collectors.toSet());
 
         // Получаем существующие категории из БД
