@@ -24,6 +24,4 @@ public class Item {
     private String icon;
 
     private String nameRu;
-
-
 }
