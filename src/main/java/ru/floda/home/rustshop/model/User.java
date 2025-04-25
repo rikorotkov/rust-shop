@@ -24,7 +24,7 @@ public class User {
 
     private Boolean isGameMaster = false;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Server> servers = new ArrayList<>();
 
     @OneToOne

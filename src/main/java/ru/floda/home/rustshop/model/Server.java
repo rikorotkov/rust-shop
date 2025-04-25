@@ -30,9 +30,13 @@ public class Server {
 
     private String rconPassword;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany
     private List<Kit> serverKits = new ArrayList<>();
 
     @OneToMany
-    private List<Item> serverItems = new ArrayList<>();
+    private List<ServerItem> serverItems = new ArrayList<>();
 }

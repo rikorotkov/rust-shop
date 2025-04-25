@@ -1,4 +1,4 @@
-package ru.floda.home.rustshop.controller;
+package ru.floda.home.rustshop.controller.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +9,7 @@ import ru.floda.home.rustshop.service.ImageDownloadService;
 import ru.floda.home.rustshop.service.ImportService;
 
 @RestController
-@RequestMapping("/service")
+@RequestMapping("api/admin-service-helper")
 @RequiredArgsConstructor
 public class DataRustServiceController {
 

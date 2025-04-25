@@ -1,0 +1,14 @@
+INSERT INTO public.categories (id, name, name_ru) VALUES (11, 'Construction', 'Строительство');
+INSERT INTO public.categories (id, name, name_ru) VALUES (9, 'Tool', 'Инструмент');
+INSERT INTO public.categories (id, name, name_ru) VALUES (10, 'Weapon', 'Оружие');
+INSERT INTO public.categories (id, name, name_ru) VALUES (3, 'Misc', 'Разное');
+INSERT INTO public.categories (id, name, name_ru) VALUES (13, 'Traps', 'Ловушки');
+INSERT INTO public.categories (id, name, name_ru) VALUES (7, 'Items', 'Предметы');
+INSERT INTO public.categories (id, name, name_ru) VALUES (5, 'Electrical', 'Электрика');
+INSERT INTO public.categories (id, name, name_ru) VALUES (14, 'Medical', 'Медицина');
+INSERT INTO public.categories (id, name, name_ru) VALUES (6, 'Fun', 'Развлечения');
+INSERT INTO public.categories (id, name, name_ru) VALUES (1, 'Food', 'Еда');
+INSERT INTO public.categories (id, name, name_ru) VALUES (4, 'Resources', 'Ресурсы');
+INSERT INTO public.categories (id, name, name_ru) VALUES (12, 'Component', 'Компоненты');
+INSERT INTO public.categories (id, name, name_ru) VALUES (8, 'Ammunition', 'Боеприпасы');
+INSERT INTO public.categories (id, name, name_ru) VALUES (2, 'Attire', 'Одежда');
