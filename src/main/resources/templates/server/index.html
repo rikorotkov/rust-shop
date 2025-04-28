@@ -9,30 +9,21 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Список серверов</title>
     <style>
-        .status-indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 6px;
-        }
-        .status-ONLINE {
-            background-color: #28a745;
-        }
-        .status-OFFLINE {
-            background-color: #dc3545;
-        }
-        .status-UNKNOWN {
-            background-color: #ffc107;
-        }
-        .status-STARTING {
-            background-color: #17a2b8;
-        }
-        .status-STOPPING {
-            background-color: #6c757d;
-        }
         .action-buttons .btn {
             padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        .btn-rcon {
+            background-color: #6f42c1;
+            color: white;
+        }
+        .btn-rcon:hover {
+            background-color: #59359e;
+            color: white;
+        }
+        .badge {
+            font-size: 0.85em;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -59,6 +50,7 @@
                     <th>Имя сервера</th>
                     <th>IP адрес:порт</th>
                     <th>Статус</th>
+                    <th>Онлайн</th>
                     <th>RCON</th>
                     <th class="text-end">Действия</th>
                 </tr>
@@ -68,13 +60,30 @@
                     <td th:text="${server.serverName}"></td>
                     <td th:text="${server.serverIp + ':' + server.serverPort}"></td>
                     <td>
-                            <span th:classappend="'status-' + ${server.status.name()}"
-                                  class="status-indicator"></span>
-                        <span th:text="${server.status.displayName}"></span>
+                        <!-- Статус сервера с бейджами Bootstrap -->
+                        <span th:switch="${server.status.name()}" class="badge">
+                            <span th:case="'ONLINE'" class="text-bg-success rounded-pill p-1">Online</span>
+                            <span th:case="'OFFLINE'" class="text-bg-danger rounded-pill p-1">Offline</span>
+                            <span th:case="'UNKNOWN'" class="text-bg-warning rounded-pill p-1">Unknown</span>
+                            <span th:case="'STARTING'" class="text-bg-info rounded-pill p-1">Starting</span>
+                            <span th:case="'STOPPING'" class="text-bg-secondary rounded-pill p-1">Stopping</span>
+                            <span th:case="*" class="text-bg-light">Unknown</span>
+                        </span>
                     </td>
+                    <td th:text="${server.currentOnline} + '/' + ${server.maxOnline ?: 100}"></td>
                     <td th:text="${server.rconIp + ':' + server.rconPort}"></td>
                     <td class="text-end action-buttons">
                         <div class="btn-group" role="group">
+                            <!-- Кнопка RCON -->
+                            <a th:if="${server.status.name() == 'ONLINE'}"
+                               th:href="@{/user/{userId}/servers/{serverId}/rcon(userId=${userId}, serverId=${server.id})}"
+                               class="btn btn-sm btn-rcon"
+                               title="RCON консоль"
+                               target="_blank">
+                                <i class="bi bi-terminal"></i> RCON
+                            </a>
+
+                            <!-- Остальные кнопки -->
                             <a th:href="@{/user/{userId}/servers/{serverId}/edit(userId=${userId}, serverId=${server.id})}"
                                class="btn btn-sm btn-outline-primary"
                                title="Редактировать">
@@ -130,7 +139,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Обработка модального окна удаления
     document.getElementById('deleteModal').addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
         const serverId = button.getAttribute('data-server-id');
@@ -139,16 +147,9 @@
         const modal = this;
         modal.querySelector('#serverNameToDelete').textContent = serverName;
 
-        // Обновляем action формы удаления
         const form = modal.querySelector('#deleteForm');
         const action = form.getAttribute('action').replace('0', serverId);
         form.setAttribute('action', action);
-    });
-
-    // Дополнительный скрипт для проверки статуса серверов
-    document.addEventListener('DOMContentLoaded', function() {
-        // Здесь можно добавить AJAX-запросы для проверки статуса серверов
-        // или реализовать WebSocket для реального обновления статусов
     });
 </script>
 </body>
