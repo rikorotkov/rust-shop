@@ -1,67 +1,62 @@
-<!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/base}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Список серверов</title>
     <style>
-        .action-buttons .btn {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
+        .card {
+            transition: transform 0.2s;
         }
-        .btn-rcon {
-            background-color: #6f42c1;
-            color: white;
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        .btn-rcon:hover {
-            background-color: #59359e;
-            color: white;
-        }
-        .badge {
-            font-size: 0.85em;
-            font-weight: 500;
+
+        .card-img-top {
+            height: 200px;
+            object-fit: contain;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="mb-0">Список моих серверов</h1>
-        <a th:if="${userId != null}"
-           th:href="@{/user/{userId}/servers/new(userId=${userId})}"
-           class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Добавить сервер
-        </a>
-    </div>
+<div layout:fragment="content">
+    <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">Список моих серверов</h1>
+            <a th:if="${userId != null}"
+               th:href="@{/user/{userId}/servers/new(userId=${userId})}"
+               class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Добавить сервер
+            </a>
+        </div>
 
-    <div th:if="${servers == null or servers.empty}" class="alert alert-info">
-        У вас нет еще серверов, создайте новый.
-    </div>
+        <div th:if="${servers == null or servers.empty}" class="alert alert-info">
+            У вас нет еще серверов, создайте новый.
+        </div>
 
-    <div th:unless="${servers == null or servers.empty}">
-        <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle">
-                <thead class="table-dark">
-                <tr>
-                    <th>Имя сервера</th>
-                    <th>IP адрес:порт</th>
-                    <th>Статус</th>
-                    <th>Онлайн</th>
-                    <th>RCON</th>
-                    <th class="text-end">Действия</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="server : ${servers}">
-                    <td th:text="${server.serverName}"></td>
-                    <td th:text="${server.serverIp + ':' + server.serverPort}"></td>
-                    <td>
-                        <!-- Статус сервера с бейджами Bootstrap -->
-                        <span th:switch="${server.status.name()}" class="badge">
+        <div th:unless="${servers == null or servers.empty}">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Имя сервера</th>
+                        <th>IP адрес:порт</th>
+                        <th>Статус</th>
+                        <th>Онлайн</th>
+                        <th>RCON</th>
+                        <th class="text-end">Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="server : ${servers}">
+                        <td th:text="${server.serverName}"></td>
+                        <td th:text="${server.serverIp + ':' + server.serverPort}"></td>
+                        <td>
+                            <!-- Статус сервера с бейджами Bootstrap -->
+                            <span th:switch="${server.status.name()}" class="badge">
                             <span th:case="'ONLINE'" class="text-bg-success rounded-pill p-1">Online</span>
                             <span th:case="'OFFLINE'" class="text-bg-danger rounded-pill p-1">Offline</span>
                             <span th:case="'UNKNOWN'" class="text-bg-warning rounded-pill p-1">Unknown</span>
@@ -69,88 +64,89 @@
                             <span th:case="'STOPPING'" class="text-bg-secondary rounded-pill p-1">Stopping</span>
                             <span th:case="*" class="text-bg-light">Unknown</span>
                         </span>
-                    </td>
-                    <td th:text="${server.currentOnline} + '/' + ${server.maxOnline ?: 100}"></td>
-                    <td th:text="${server.rconIp + ':' + server.rconPort}"></td>
-                    <td class="text-end action-buttons">
-                        <div class="btn-group" role="group">
-                            <!-- Кнопка RCON -->
-                            <a th:if="${server.status.name() == 'ONLINE'}"
-                               th:href="@{/user/{userId}/servers/{serverId}/rcon(userId=${userId}, serverId=${server.id})}"
-                               class="btn btn-sm btn-rcon"
-                               title="RCON консоль"
-                               target="_blank">
-                                <i class="bi bi-terminal"></i> RCON
-                            </a>
+                        </td>
+                        <td th:text="${server.currentOnline} + '/' + ${server.maxOnline ?: 100}"></td>
+                        <td th:text="${server.rconIp + ':' + server.rconPort}"></td>
+                        <td class="text-end action-buttons">
+                            <div class="btn-group" role="group">
+                                <!-- Кнопка RCON -->
+                                <a th:if="${server.status.name() == 'ONLINE'}"
+                                   th:href="@{/user/{userId}/servers/{serverId}/rcon(userId=${userId}, serverId=${server.id})}"
+                                   class="btn btn-sm btn-rcon"
+                                   title="RCON консоль"
+                                   target="_blank">
+                                    <i class="bi bi-terminal"></i> RCON
+                                </a>
 
-                            <!-- Остальные кнопки -->
-                            <a th:href="@{/user/{userId}/servers/{serverId}/edit(userId=${userId}, serverId=${server.id})}"
-                               class="btn btn-sm btn-outline-primary"
-                               title="Редактировать">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                            <button type="button" class="btn btn-sm btn-outline-danger"
-                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                    th:attr="data-server-id=${server.id}, data-server-name=${server.serverName}"
-                                    title="Удалить">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                            <a th:href="@{/user/{userId}/servers/{serverId}/manage(userId=${userId}, serverId=${server.id})}"
-                               class="btn btn-sm btn-outline-secondary"
-                               th:classappend="${server.status.name() == 'ONLINE'} ? 'btn-outline-success' : 'btn-outline-secondary'"
-                               title="Управление">
-                                <i class="bi bi-gear"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                                <!-- Остальные кнопки -->
+                                <a th:href="@{/user/{userId}/servers/{serverId}/edit(userId=${userId}, serverId=${server.id})}"
+                                   class="btn btn-sm btn-outline-primary"
+                                   title="Редактировать">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                        data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                        th:attr="data-server-id=${server.id}, data-server-name=${server.serverName}"
+                                        title="Удалить">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                <a th:href="@{/user/{userId}/servers/{serverId}/manage(userId=${userId}, serverId=${server.id})}"
+                                   class="btn btn-sm btn-outline-secondary"
+                                   th:classappend="${server.status.name() == 'ONLINE'} ? 'btn-outline-success' : 'btn-outline-secondary'"
+                                   title="Управление">
+                                    <i class="bi bi-gear"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Модальное окно подтверждения удаления -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Вы действительно хотите удалить сервер <span id="serverNameToDelete" class="fw-bold"></span>?
-                <div class="alert alert-warning mt-2">
-                    Это действие нельзя отменить! Все данные сервера будут удалены.
+    <!-- Модальное окно подтверждения удаления -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Вы действительно хотите удалить сервер <span id="serverNameToDelete" class="fw-bold"></span>?
+                    <div class="alert alert-warning mt-2">
+                        Это действие нельзя отменить! Все данные сервера будут удалены.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <form th:action="@{/user/{userId}/servers/{serverId}/delete(userId=${userId}, serverId=0)}"
+                          method="post" id="deleteForm">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Удалить
+                        </button>
+                    </form>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <form th:action="@{/user/{userId}/servers/{serverId}/delete(userId=${userId}, serverId=0)}"
-                      method="post" id="deleteForm">
-                    <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-trash"></i> Удалить
-                    </button>
-                </form>
-            </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('deleteModal').addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const serverId = button.getAttribute('data-server-id');
+            const serverName = button.getAttribute('data-server-name');
+
+            const modal = this;
+            modal.querySelector('#serverNameToDelete').textContent = serverName;
+
+            const form = modal.querySelector('#deleteForm');
+            const action = form.getAttribute('action').replace('0', serverId);
+            form.setAttribute('action', action);
+        });
+    </script>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.getElementById('deleteModal').addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        const serverId = button.getAttribute('data-server-id');
-        const serverName = button.getAttribute('data-server-name');
-
-        const modal = this;
-        modal.querySelector('#serverNameToDelete').textContent = serverName;
-
-        const form = modal.querySelector('#deleteForm');
-        const action = form.getAttribute('action').replace('0', serverId);
-        form.setAttribute('action', action);
-    });
-</script>
 </body>
 </html>
