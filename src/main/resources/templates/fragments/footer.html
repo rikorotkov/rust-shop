@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <!-- Фрагмент подвала -->
+        <footer th:fragment="footer" class="bg-dark text-white py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>RustShop</h5>
+                        <p>Лучшие серверы Rust с удобным управлением</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>Навигация</h5>
+                        <ul class="list-unstyled">
+                            <li><a th:href="@{/servers}" class="text-white">Серверы</a></li>
+                            <li><a th:href="@{/about}" class="text-white">О нас</a></li>
+                            <li><a th:href="@{/contact}" class="text-white">Контакты</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>Контакты</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-envelope"></i> info@rustshop.com</li>
+                            <li><i class="bi bi-telegram"></i> @rustshop_support</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="my-4 bg-light">
+                <div class="text-center">
+                    <p class="mb-0">&copy; 2025 RustShop. Все права защищены.</p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

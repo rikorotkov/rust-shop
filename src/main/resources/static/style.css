@@ -1,0 +1,16 @@
+/* Основные стили */
+body {
+    padding-top: 56px;
+}
+
+.badge {
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+}
