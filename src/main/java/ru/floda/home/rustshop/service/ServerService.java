@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.floda.home.rustshop.exceptions.UserNotFoundException;
 import ru.floda.home.rustshop.model.Server;
 import ru.floda.home.rustshop.model.ServerItem;
+import ru.floda.home.rustshop.model.User;
 import ru.floda.home.rustshop.repository.ItemRepository;
 import ru.floda.home.rustshop.repository.ServerItemRepository;
 import ru.floda.home.rustshop.repository.ServerRepository;
@@ -24,7 +25,9 @@ public class ServerService {
     private final ItemRepository itemRepository;
     private final ServerItemRepository serverItemRepository;
 
-    public void addNewServer(Server server) {
+    public void addNewServer(Server server, long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        server.setUser(user);
         serverRepository.save(server);
         log.info("Server added: " + server);
     }

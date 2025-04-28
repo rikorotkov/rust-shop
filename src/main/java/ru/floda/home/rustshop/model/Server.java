@@ -30,6 +30,15 @@ public class Server {
 
     private String rconPassword;
 
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private ServerStatus status = ServerStatus.UNKNOWN;
+
+    @Builder.Default
+    private Integer currentOnline = 0;
+
+    private Integer maxOnline;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
