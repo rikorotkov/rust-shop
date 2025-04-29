@@ -22,3 +22,9 @@ spring:
 server:
   port: 8080
 
+
+rcon:
+  connection:
+    max-retries: 3
+    retry-delay: 1000
+    timeout: 5000
