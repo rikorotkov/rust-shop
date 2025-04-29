@@ -3,7 +3,7 @@ package ru.floda.home.rustshop.service.rcon;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.core.config.Scheduled;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.floda.home.rustshop.model.Server;
 import ru.floda.home.rustshop.model.ServerStatus;
@@ -27,6 +27,18 @@ public class ServerStatusService {
             try {
                 ServerStatus status = rconService.checkServerStatus(server);
                 server.setStatus(status);
+
+                if (status == ServerStatus.OFFLINE) {
+                    Integer online = rconService.getOnlinePlayers(server);
+                    server.setCurrentOnline(online);
+                } else {
+                    server.setCurrentOnline(0);
+                }
+                serverRepository.save(server);
+            } catch (Exception e) {
+                log.error("Error while updating server status", server.getServerName());
+                server.setStatus(ServerStatus.UNKNOWN);
+                serverRepository.save(server);
             }
         }
     }
