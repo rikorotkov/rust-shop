@@ -26,5 +26,5 @@ server:
 rcon:
   connection:
     max-retries: 3
-    retry-delay: 1000
-    timeout: 5000
+    retry-delay: 2000
+    timeout: 10000

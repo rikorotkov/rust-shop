@@ -22,6 +22,7 @@ public class ServerStatusService {
     @Scheduled(fixedRate = 30000)
     @Transactional
     public void updateServerStatus() {
+        log.info("Updating server status");
         List<Server> servers = serverRepository.findAll();
         for (Server server : servers) {
             try {
