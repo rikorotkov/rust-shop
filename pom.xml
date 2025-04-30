@@ -89,6 +89,12 @@
             <artifactId>thymeleaf-layout-dialect</artifactId>
             <version>3.2.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/nl.vv32.rcon/rcon -->
+        <dependency>
+            <groupId>nl.vv32.rcon</groupId>
+            <artifactId>rcon</artifactId>
+            <version>1.2.0</version>
+        </dependency>
     </dependencies>
 
     <build>
