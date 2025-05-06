@@ -12,7 +12,7 @@ public class WebRcon extends WebSocketClient {
         super(serverUri);
         this.setConnectionLostTimeout(0); // Отключаем проверку PING/PONG
     }
-
+    //test
     @Override
     public void onOpen(ServerHandshake handshake) {
         log.info("Connection established");
